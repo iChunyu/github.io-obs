@@ -2,8 +2,8 @@
 <search>
   <entry>
     <title><![CDATA[LPSD功率谱估计]]></title>
-    <url>%2F2019%2F09%2F14%2FLPSD%2F</url>
-    <content type="text"><![CDATA[先给一个干货预告：LPSD功率谱估计。迫不及待的小伙伴们可以参考LTPDA 或者文献Improved spectrum estimation from digitized time series on a logarithmic frequency axis]]></content>
+    <url>%2F2019%2F09%2F15%2FLPSD%2F</url>
+    <content type="text"><![CDATA[欧洲航空局（ESA）为LISA计划设计了完整的数据处理工具包LTPDA （LISA Technology Package Data Analysis），该工具包中内置一种对数频率点功率谱估计算法，即本文所提的LPSD算法。该算法由文献Improved spectrum estimation from digitized time series on a logarithmic frequency axis 给出。本文作为对该文献学习的总结，同时作为对MATLAB的学习，自编了基于LPSD算法的功率谱估计函数。]]></content>
       <categories>
         <category>算法分享</category>
       </categories>
