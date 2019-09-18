@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/15/LPSD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/18/LPSD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chunyu">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/15/LPSD/" itemprop="url">LPSD功率谱估计</a></h1>
+                <a class="post-title-link" href="/2019/09/18/LPSD/" itemprop="url">LPSD功率谱估计</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-15T19:37:37+08:00">
-                2019-09-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-18T14:30:37+08:00">
+                2019-09-18
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法分享/" itemprop="url" rel="index">
-                    <span itemprop="name">算法分享</span>
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
                   </a>
                 </span>
 
@@ -389,7 +389,7 @@
           <p>欧洲航空局（ESA）为LISA计划设计了完整的数据处理工具包<a href="https://www.elisascience.org/ltpda/" target="_blank" rel="noopener">LTPDA</a> （LISA Technology Package Data Analysis），该工具包中内置一种对数频率点功率谱估计算法，即本文所提的LPSD算法。该算法由文献<a href="https://www.sciencedirect.com/science/article/pii/S026322410500117X" target="_blank" rel="noopener">Improved spectrum estimation from digitized time series on a logarithmic frequency axis</a> 给出。本文作为对该文献学习的总结，同时作为对MATLAB的学习，自编了基于LPSD算法的功率谱估计函数。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/15/LPSD/#more" rel="contents">
+            <a class="btn" href="/2019/09/18/LPSD/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -532,11 +532,10 @@
 
       
         
-          <blockquote>
-<p>但愿人长久，千里共婵娟。    （苏轼，水调歌头）</p>
+          <blockquote class="blockquote-center"><p>但愿人长久，千里共婵娟。<br>苏轼（水调歌头）</p>
 </blockquote>
-<p>第一次写博客，也不知道该写一些什么，既然今天是中秋节，那就先祝大家中秋节快乐吧！</p>
-<p>今天也正好是我两个好朋友的生日，他们是Randy和玉玺。本想着写点什么文艺的话，可是呢，你们懂的。<br>不过，蛋糕还是要吃的，祝你们生日快乐，万事如意！</p>
+
+<p>第一次写博客，也不知道该写一些什么，既然今天是中秋节，那就祝大家中秋节快乐吧！</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/09/13/MidAutumn/#more" rel="contents">
@@ -647,7 +646,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -657,6 +656,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iChunyu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chunyu2018@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -1212,6 +1227,77 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制代码').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制代码')
+        }, 300)
+      }).append(e)
+    })
+  </script>
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>
