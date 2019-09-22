@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git,版本控制,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="版本控制是对工作中各种文件的变动进行记录、备份，并在有需要的时候进行文件恢复的一种有效手段。Git是最先进的分布式版本控制系统，无论是个人文件的备份，还是大型项目的多人协作，都能从Git中受益匪浅。这篇博客是我个人学习Git的进展记录，目的是汇总Git的常用操作，顺便将Git分享给有兴趣或有需求的朋友们。">
+<meta name="keywords" content="Git,版本控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git简介">
+<meta property="og:url" content="http://yoursite.com/2019/09/21/IntroGit/index.html">
+<meta property="og:site_name" content="Spring Garden">
+<meta property="og:description" content="版本控制是对工作中各种文件的变动进行记录、备份，并在有需要的时候进行文件恢复的一种有效手段。Git是最先进的分布式版本控制系统，无论是个人文件的备份，还是大型项目的多人协作，都能从Git中受益匪浅。这篇博客是我个人学习Git的进展记录，目的是汇总Git的常用操作，顺便将Git分享给有兴趣或有需求的朋友们。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/setup.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/git1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/git2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/cmd.jpg">
+<meta property="og:updated_time" content="2019-09-22T05:20:42.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git简介">
+<meta name="twitter:description" content="版本控制是对工作中各种文件的变动进行记录、备份，并在有需要的时候进行文件恢复的一种有效手段。Git是最先进的分布式版本控制系统，无论是个人文件的备份，还是大型项目的多人协作，都能从Git中受益匪浅。这篇博客是我个人学习Git的进展记录，目的是汇总Git的常用操作，顺便将Git分享给有兴趣或有需求的朋友们。">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/21/IntroGit/setup.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/21/IntroGit/">
+
+
+
+
+
+  <title>Git简介 | Spring Garden</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Spring Garden</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Chunyu's personal blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/21/IntroGit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chunyu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spring Garden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git简介</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-21T14:47:50+08:00">
+                2019-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版本控制是对工作中各种文件的变动进行记录、备份，并在有需要的时候进行文件恢复的一种有效手段。Git是最先进的分布式版本控制系统，无论是个人文件的备份，还是大型项目的多人协作，都能从Git中受益匪浅。这篇博客是我个人学习Git的进展记录，目的是汇总Git的常用操作，顺便将Git分享给有兴趣或有需求的朋友们。</p>
+<a id="more"></a>
+
+<h1 id="邂逅Git"><a href="#邂逅Git" class="headerlink" title="邂逅Git"></a>邂逅Git</h1><p>相信很多朋友都会或多或少遇到过这些问题：写一篇文章，直接在初稿上改来改去，到最后还是感觉初稿好，却没办法恢复；或者有些习惯很好的朋友，每修改一次就复制一份当前版本作为备份，然而到了后期，工作文件夹内会有一大堆文档，也无法对比各个版本之间的差异。如果你即希望在一个文件上直接修改以保持工作目录的整洁，又想对每个版本进行备注说明，必要时恢复版本进行对比，那么Git就能成为你最得力的助手！</p>
+<p>那么，为了使用Git，首先需要下载安装。对于使用Debian系的Linux的小伙伴们，没有什么比<code>apt-get install git</code>更容易了，别犹豫，一键安装！对于使用Windows系列的小伙伴们，可从<a href="https://git-scm.com/" target="_blank" rel="noopener">Git官方网站</a> 下载安装。基本上按默认配置就可以，一路选“是”。</p>
+<p>对于Windows用户，安装时有以下两点需要提醒。其一，在选择Git默认文本编辑器时，默认为Vim，这是一款非常强大的编辑器，但是对新手不是很友好，建议换成其他编辑器，这里比较推荐Notepad++（需另外安装）；其二，在路径环境设置时尽量按推荐使其支持第三方工具调用，这在后期需要GUI界面时提供便利。</p>
+<p><img src="/2019/09/21/IntroGit/setup.jpg" alt="安装提醒"></p>
+<p>Git安装好了之后便可以运行Git Bash，输入<code>git --version</code>，若能显示版本号则表示安装成功。</p>
+<h1 id="初识Git"><a href="#初识Git" class="headerlink" title="初识Git"></a>初识Git</h1><p>为了后面学习的方便，我们需要了解一下Git的三个工作区域：首先，<strong>工作目录</strong>是指当前能够直接进行操作的目录，例如<code>D:\StudyGit\</code>这个文件夹就可以成为工作目录，我们可以直接对该文件夹内的各种文件进行各种操作；然后，我们会把修改后的文件添加到<strong>暂存区</strong>，这是临时保存当前工作状态的空间；最后，通过对本次修改添加备注，我们就能把暂存区内的信息提交到<strong>Git仓库</strong>。一旦数据提交到仓库，我们就不用再担心数据丢失的问题了。</p>
+<p>每次提交修改后，Git就会储存当时全部文件的快照，并以一个由40位16进制字符组成的哈希值进行校验。这种哈希值通常看起来像是<code>78b6157cdbc031530c24b003fd72d283fab30d44</code>。通常情况下，我们只需要用前几位数字来表征这一状态，聪明的Git会自己判断。由于Git储存数据的方式，按顺序提交的新的快照指向旧的快照，使得我们的提交历史看起来像下面的图一样。也正因此，我们通常指后提交的快照为“上游”，之前提交的为“下游”。</p>
+<p><img src="/2019/09/21/IntroGit/git1.jpg" alt></p>
+<p>眼尖的小伙伴应该已经注意到了，图中除了哈希值代表的工作目录快照外，还有<code>master</code>和<code>HEAD</code>两个莫名奇妙的东西。不瞒你说，这俩家伙都是Git内的指针，其中<code>master</code>是Git仓库在初始化时产生的默认分支，其名称并没有特别之处。我们可以说，在Git里，分支就是指针，一个普通的指针就对应一个分支。需要注意的是，另一个全部大写的<code>HEAD</code>是一个非常特殊的指针，它指向当前的分支，换句话说，它决定了你当前的修改会提交在哪个分支。</p>
+<p>我们可以打一个非常有意思的比方，我们把文件的提交，或者说仓库的向上游的扩展看作是修路，那么<code>master</code>就代表一个没有包工头的施工队，而<code>HEAD</code>就是包工头（当然是你自己啦）。我们的包工头带领哪个施工队，工程就会在那个施工队的后面延续。而当有多个施工队时，其他的施工队就处于窝工状态。所以我们可以考察下面这种情况，我们在<code>g38jg</code>处新建一个分支，即生成名为<code>joker</code>的指针，再令<code>HEAD</code>指向它，那我们在修改文件提交后，仓库是在A处延续还是在B处呢？</p>
+<p><img src="/2019/09/21/IntroGit/git2.jpg" alt></p>
+<p>答案是在A处延续，毕竟包工头<code>HEAD</code>安排的是<code>joker</code>搬砖嘛。</p>
+<p>OK，有了这些感性认识之后，后面的学习相信会容易很多。</p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>本来想着按照教程的思路去解释各种命令，但是<a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">廖雪峰的官方网站</a>已经展示了新手向的引导，且<a href="https://git-scm.com/docs" target="_blank" rel="noopener">Git帮助文档</a>也给出了非常详细的教程。以我的水平，也没必要再在这里赘述，倒不如给出常用的命令列表，再用一个实例进行说明。</p>
+<p>下列命令中的<code>&lt;example&gt;</code>均为示例，实际使用时连同尖括号一起替换为相应参数。</p>
+<p><img src="/2019/09/21/IntroGit/cmd.jpg" alt></p>
+<p>Git的分支是杀手锏武器，开发者也非常鼓励大家在使用的时候频繁利用分支进行管理。例如需要进行版本回退时，可以创建个指向回退版本的分支，在那个分支上进行修改，验证可行后将其合并到主分支即可。这就避免了“吃了后悔药之后又后悔”的情况。</p>
+<h1 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h1><p>最近老板让我整理一个系统仿真模型，这个模型不同于我之前搭建的模型，所以我选择新建一个文件夹来专门处理这个事情，同时，我希望用Git对该任务进行管理。我决定采用这种方式进行：以Git的<strong>master</strong>分支作为主分支，始终保持其正确性，其他所有的任务都在临时的分支中进行，调试完成后再合并到主分支。</p>
+<h2 id="工作目录初始化"><a href="#工作目录初始化" class="headerlink" title="工作目录初始化"></a>工作目录初始化</h2><p>假设这个项目的代号为A，于是我新建了一个名为<strong>ProjectA</strong>的文件夹，并右键打开Git Bash Here，运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p>虽然Git Bash提示我成功创建了一个仓库，但文件夹内没有看到任何新文件。不要紧，因为之前说过Git仓库不显示在工作目录，实际上它是一个隐藏文件，一般人千万不要去修改它。</p>
+<p>接着我打开MATLAB，想到后面的工作会在Simulink上进行，而Simulink在运行时会产生一个名为<strong>slprj</strong>的文件夹，用来保存仿真过程中的各种信息。我不希望这个文件夹进入Git仓库，所以需要让Git忽略它。为此，我们需要编写一个名为<strong>.gitignore</strong>的文本文件。</p>
+<p>如果你尝试新建txt文件，然后强行改名，Windows会提示你必须键入文件名（它一般不允许以小数点开头的文件）。这时，我们可以先打开notepad++，编辑好内容后保存，这时从提示框内输入以点开头的文件名是可行的，注意不要选任何后缀。对我而言，既然已经打开MATLAB了，直接用MATLAB编辑不就好了嘛。于是我在MATLAB中输入<code>edit .gitignore</code>，在弹出的文件编辑器内输入‘slprj/’后保存。于是Git以后就会忽略这个文件夹了。</p>
+<p>又想到，Git可以对文本文件进行对比，并在有差异的地方插入提示符以凸显。然而Simulink模型是二进制文件，如果Git把它当成文本文件对比并修改，我的模型可能就前功尽弃了。因此我要告诉Git哪些文件是二进制文件，在对比差异的时候不要进行修改。所以我又新建了一个名为<strong>.gitattributes</strong>的文件，在其中添加了以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">*.mlx -crlf -diff -merge</span><br><span class="line">*.mat -crlf -diff -merge</span><br><span class="line">*.fig -crlf -diff -merge</span><br><span class="line">*.mdl -crlf -diff -merge</span><br><span class="line">*.slx -crlf -diff -merge</span><br><span class="line">*.mlapp -crlf -diff -merge</span><br><span class="line">*.p -crlf -diff -merge</span><br><span class="line">*.mdlp -crlf -diff -merge</span><br><span class="line">*.slxp -crlf -diff -merge</span><br><span class="line">*.sldd -crlf -diff -merge</span><br><span class="line">*.slxc -crlf -diff -merge</span><br><span class="line">*.mlproj -crlf -diff -merge</span><br><span class="line">*.mldatx -crlf -diff -merge</span><br><span class="line">*.slreqx -crlf -diff -merge</span><br><span class="line">*.sfx -crlf -diff -merge</span><br><span class="line">*.sltx -crlf -diff -merge</span><br><span class="line">*.mexa64 -crlf -diff -merge</span><br><span class="line">*.mexw64 -crlf -diff -merge</span><br><span class="line">*.mexmaci64 -crlf -diff -merge</span><br><span class="line">*.xlsx -crlf -diff -merge</span><br><span class="line">*.docx -crlf -diff -merge</span><br><span class="line">*.pdf -crlf -diff -merge</span><br><span class="line">*.jpg -crlf -diff -merge</span><br><span class="line">*.png -crlf -diff -merge</span><br></pre></td></tr></table></figure>
+
+<p>为了纪念这个开头，我希望将这两个以小数点开头的文件保存到Git仓库，于是我在Git Bash中分别运行了下面两个命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &apos;Init Git: add configuration&apos;</span><br></pre></td></tr></table></figure>
+
+<p>至此，该项目的初始化配置就完成了。我又用<code>git status</code>命令确认了下当前状态，Bash提示我当前在<strong>master</strong>分支，工作树很干净，这说明我的操作是正确的。</p>
+<h2 id="添加文件并提交修改"><a href="#添加文件并提交修改" class="headerlink" title="添加文件并提交修改"></a>添加文件并提交修改</h2><p>前期的工作都是最基本的参数录入、函数编写等不容易犯错的事情，并且刚开始还没有形成稳定的版本，所以我决定前期直接在<strong>master</strong>分支进行工作。第一天，我完成了参数的导入和函数的编写，在下班前，我把这些工作保存到Git仓库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &apos;load para and design fcn&apos;</span><br></pre></td></tr></table></figure>
+
+<p>同样地，第二天我实现了仿真模型的建立，第三天我获得了初步的控制参数，这些都分别利用<code>add</code>和<code>commit</code>提交到了Git仓库。下班之前，我想看看之前的进展，于是在Git Bash中输入<code>git log --oneline</code>，我看到以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chunyu@MyPC /d/iGitHubs/ProjectA (master)</span><br><span class="line">$ git log --oneline</span><br><span class="line">b483575 (HEAD -&gt; master) get primary ctrl-para</span><br><span class="line">3ddb6c9 finish simulink model</span><br><span class="line">5752ad5 load para and design fcn</span><br><span class="line">d942761 Init Git: add configuration</span><br></pre></td></tr></table></figure>
+
+<p>可见，目前<strong>HEAD</strong>指针在<strong>master</strong>分支处，且处于b483575这个快照处，备注说获得了初步的控制参数。至此，我的模型已经基本可用，或者说项目达到了一个初始阶段，后面的工作都可以以此为基准进行，换句话说，后面的工作可以以该处为节点进行分支。</p>
+<h2 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h2><p>第四天起来头脑有点不清醒，我直接在仿真模型中进行修改并尝试更好的参数。没多久，我想起来如果我把参数改乱了，仿真模型就不能用了，这些操作我应该在一个新的分支中进行，所以我需要撤销这些操作，而我又忘记撤销的命令了，于是我在Git Bash中利用<code>git status</code>查看了当前状态，我得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">chunyu@MyPC /d/iGitHubs/ProjectA (master)</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">        modified:   SimModel.slx</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>它提示我要么用<code>add</code>将修改添加到暂存区，或者用<code>restore</code>放弃修改。于是我用<code>git restore .</code>丢弃了这次的所有操作。</p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>喝了杯咖啡，头脑清醒些了，于是我用以下命令新建并转到一个名为<strong>TunePara</strong>的新分支上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git switch -c TunePara</span><br></pre></td></tr></table></figure>
+
+<p>在新的分支下，我就可以不用担心模型被弄乱，从而为所欲为了。</p>
+<p>在接下来几个小时内，我调了很多组不同的参数，虽然可用，但还是没有达到我的预期效果。但我还是将这些过程添加到了Git仓库，现在，我的Git历史看起来是这个样子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">chunyu@MyPC /d/iGitHubs/ProjectA (TunePara)</span><br><span class="line">$ git log --oneline</span><br><span class="line">294c42d (HEAD -&gt; TunePara) 60Hz Para</span><br><span class="line">d003db0 50Hz Para</span><br><span class="line">adaef2f 40Hz Para</span><br><span class="line">7e9d9a4 30Hz Para</span><br><span class="line">b483575 (master) get primary ctrl-para</span><br><span class="line">3ddb6c9 finish simulink model</span><br><span class="line">5752ad5 load para and design fcn</span><br><span class="line">d942761 Init Git: add configuration</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，我的<strong>master</strong>分支停留在的b483575这个稳定版本，而_TunePara_分支已经发展了四次。</p>
+<p>这时，老板让我随便用一套参数做一个他临时想到的方案测试。由于参数还没有调到理想状态，我觉得用初始参数去尝试就好。因此，我提交当前工作后，用以下两个命令在b483575处又新建了一个名为<strong>SimModel</strong>的分支，并切换过去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch SimModel b483575</span><br><span class="line">git switch SimModel</span><br></pre></td></tr></table></figure>
+
+<p>我去？刚刚调参数写的一些新函数全部不见了？不用担心，因为那些函数在<strong>TunePara</strong>分支上，而现在在<strong>SimModel</strong>分支，看到的东西当然不太一样了。但是，既然这是另一个分支，我当然也是可以为所欲为的了。</p>
+<p>我在<strong>SimModel</strong>分支提交了一些工作，由于已经有了三个分支，为了清楚地看现在Git的全部历史，我采用了<code>git log --oneline --graph --all</code>命令，然后看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">chunyu@MyPC /d/iGitHubs/ProjectA (SimModel)</span><br><span class="line">$ git log --oneline --graph --all</span><br><span class="line">* 64ec543 (HEAD -&gt; SimModel) Exp3</span><br><span class="line">* a075106 Exp2</span><br><span class="line">* 4b6dbcf Exp1</span><br><span class="line">| * 3ce0291 (TunePara) TempBreak to SimModel</span><br><span class="line">| * 294c42d 60Hz Para</span><br><span class="line">| * d003db0 50Hz Para</span><br><span class="line">| * adaef2f 40Hz Para</span><br><span class="line">| * 7e9d9a4 30Hz Para</span><br><span class="line">|/</span><br><span class="line">* b483575 (master) get primary ctrl-para</span><br><span class="line">* 3ddb6c9 finish simulink model</span><br><span class="line">* 5752ad5 load para and design fcn</span><br><span class="line">* d942761 Init Git: add configuration</span><br></pre></td></tr></table></figure>
+
+<p>按照时间顺序的话，我们应当从下往上看。其中，短线表示的是分支，星号表示Git储存的快照，其哈希值在同一行，其后就是当次提交的备注。应当注意的是，如果将该仓库克隆到其他电脑，哈希值可能会变。因此，写好备注是非常重要的。</p>
+<p>老板觉得仿真基本达到预期效果，但还是要求参数调好之后重新仿真，因此我又要暂停这个任务，使用<code>git switch TunePara</code>跳转到<strong>TunePara</strong>分支上继续进行参数设计。</p>
+<p>多次尝试后，最终获得了理想的控制参数，那么主分支<strong>master</strong>就应该向上游推进。也就是说，我们需要将最终完成后的<strong>TunePara</strong>分支合并到<strong>master</strong>分支。我们只需要切换到<strong>master</strong>分支再利用<code>merge</code>命令即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git switch master</span><br><span class="line">git merge TunePara</span><br></pre></td></tr></table></figure>
+
+<p>然后我们会看到更新完成并有‘Fast-forward’的提醒。再看Git历史</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">chunyu@MyPC /d/iGitHubs/ProjectA (master)</span><br><span class="line">$ git log --oneline --graph --all</span><br><span class="line">* 5dec3a7 (HEAD -&gt; master, TunePara) Final Para</span><br><span class="line">* 3ce0291 TempBreak to SimModel</span><br><span class="line">* 294c42d 60Hz Para</span><br><span class="line">* d003db0 50Hz Para</span><br><span class="line">* adaef2f 40Hz Para</span><br><span class="line">* 7e9d9a4 30Hz Para</span><br><span class="line">| * e8faa02 (SimModel) Exp4</span><br><span class="line">| * 64ec543 Exp3</span><br><span class="line">| * a075106 Exp2</span><br><span class="line">| * 4b6dbcf Exp1</span><br><span class="line">|/</span><br><span class="line">* b483575 get primary ctrl-para</span><br><span class="line">* 3ddb6c9 finish simulink model</span><br><span class="line">* 5752ad5 load para and design fcn</span><br><span class="line">* d942761 Init Git: add configuration</span><br></pre></td></tr></table></figure>
+
+<p>可以看到由于<strong>TunePara</strong>分支是由之前<strong>master</strong>分支所在的b483575快照处直接延伸过去的，也就是说从b483575快照到最终的<strong>TunePara</strong>分支处是一条直线，所以合并时不存在文件冲突，直接快进到上游区，最终使<strong>master</strong>和<strong>TunePara</strong>指向同一快照。</p>
+<p>至此，我不再需要<strong>TunePara</strong>分支了，故将其删除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d TunePara</span><br></pre></td></tr></table></figure>
+
+<p>现在，完美的模型在<strong>master</strong>分支，而仿真需要的其他文件在<strong>SimModel</strong>分支，为了形成一个新的稳定版本，这两个分支需要合并，我尝试在<strong>master</strong>分支直接合并<strong>SimModel</strong>分支的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chunyu@MyPC /d/iGitHubs/ProjectA (master)</span><br><span class="line">$ git merge SimModel</span><br><span class="line">warning: Cannot merge binary files: Moldel.slx (HEAD vs. SimModel)</span><br><span class="line">Auto-merging Moldel.slx</span><br><span class="line">CONFLICT (content): Merge conflict in Moldel.slx</span><br><span class="line">Automatic merge failed; fix conflicts and then commit the result.</span><br></pre></td></tr></table></figure>
+
+<p>它说，无法自动合并二进制文件，需要我们手动处理。此时我们如果关注命令行的括号，它已经从<strong>(master)</strong>变成了<strong>(master|MERGING)</strong>，说明我们确实需要手动进行合并。这是因为我们在初始化使设置了仿真模型文件作为二进制文件，Git将不会主动修改它。</p>
+<p>显然，<strong>SimModel</strong>分支里的模型是旧的，我们应当保留<strong>master</strong>分支中的文件，因此我们需要运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout Model.slx --ours</span><br></pre></td></tr></table></figure>
+
+<p>最后的<code>--ours</code>代表当前分支的文件，若想采用另一分支的文件，可改用<code>--theirs</code>参数。合并之后不妨用<code>git status</code>查看下状况，Git就会提示这次合并需要输入备注才能提交到Git仓库，因此我们提交本次合并的注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &apos;merge sim model&apos;</span><br></pre></td></tr></table></figure>
+
+<p>最后看一眼整个历史</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">chunyu@MyPC /d/iGitHubs/ProjectA (master)</span><br><span class="line">$ git log --oneline --graph --all</span><br><span class="line">*   5512a06 (HEAD -&gt; master) merge sim model</span><br><span class="line">|\</span><br><span class="line">| * e8faa02 (SimModel) Exp4</span><br><span class="line">| * 64ec543 Exp3</span><br><span class="line">| * a075106 Exp2</span><br><span class="line">| * 4b6dbcf Exp1</span><br><span class="line">* | 5dec3a7 Final Para</span><br><span class="line">* | 3ce0291 TempBreak to SimModel</span><br><span class="line">* | 294c42d 60Hz Para</span><br><span class="line">* | d003db0 50Hz Para</span><br><span class="line">* | adaef2f 40Hz Para</span><br><span class="line">* | 7e9d9a4 30Hz Para</span><br><span class="line">|/</span><br><span class="line">* b483575 get primary ctrl-para</span><br><span class="line">* 3ddb6c9 finish simulink model</span><br><span class="line">* 5752ad5 load para and design fcn</span><br><span class="line">* d942761 Init Git: add configuration</span><br></pre></td></tr></table></figure>
+
+<p>可见，合并后<strong>master</strong>分支又向上游推进了一步，而<strong>SimModel</strong>分支保持不变。至此，第一阶段的工作已经完成，用<code>git branch -d SimModel</code>删除多余的分支，等待下一次任务吧。</p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>在这篇博客写完的时候，本人对Git的使用也不到一个月的时间，故其中难免有不周全的地方。对Git有兴趣的同学可以阅读Git官方提供的参考书<a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Pro Git</a>或直接阅读<a href="https://git-scm.com/docs" target="_blank" rel="noopener">Git帮助文档</a>。祝大家学习愉快！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/版本控制/" rel="tag"># 版本控制</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/18/LPSD/" rel="next" title="LPSD功率谱估计">
+                <i class="fa fa-chevron-left"></i> LPSD功率谱估计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Chunyu">
+            
+              <p class="site-author-name" itemprop="name">Chunyu</p>
+              <p class="site-description motion-element" itemprop="description">Looking to the future.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iChunyu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chunyu2018@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#邂逅Git"><span class="nav-number">1.</span> <span class="nav-text">邂逅Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识Git"><span class="nav-number">2.</span> <span class="nav-text">初识Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个栗子"><span class="nav-number">4.</span> <span class="nav-text">一个栗子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作目录初始化"><span class="nav-number">4.1.</span> <span class="nav-text">工作目录初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加文件并提交修改"><span class="nav-number">4.2.</span> <span class="nav-text">添加文件并提交修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销操作"><span class="nav-number">4.3.</span> <span class="nav-text">撤销操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">4.4.</span> <span class="nav-text">分支管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">5.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chunyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制代码').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制代码')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
