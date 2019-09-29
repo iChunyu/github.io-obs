@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/git1.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/git2.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/cmd.jpg">
-<meta property="og:updated_time" content="2019-09-22T05:24:51.645Z">
+<meta property="og:updated_time" content="2019-09-29T08:20:14.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git简介">
 <meta name="twitter:description" content="版本控制是对工作中各种文件的变动进行记录、备份，并在有需要的时候进行文件恢复的一种有效手段。Git是最先进的分布式版本控制系统，无论是个人文件的备份，还是大型项目的多人协作，都能从Git中受益匪浅。这篇博客是我个人学习Git的进展记录，目的是汇总Git的常用操作，顺便将Git分享给有兴趣或有需求的朋友们。">
@@ -392,7 +392,7 @@
         <p>版本控制是对工作中各种文件的变动进行记录、备份，并在有需要的时候进行文件恢复的一种有效手段。Git是最先进的分布式版本控制系统，无论是个人文件的备份，还是大型项目的多人协作，都能从Git中受益匪浅。这篇博客是我个人学习Git的进展记录，目的是汇总Git的常用操作，顺便将Git分享给有兴趣或有需求的朋友们。</p>
 <a id="more"></a>
 
-<h1 id="邂逅Git"><a href="#邂逅Git" class="headerlink" title="邂逅Git"></a>邂逅Git</h1><p>相信很多朋友都会或多或少遇到过这些问题：写一篇文章，直接在初稿上改来改去，到最后还是感觉初稿好，却没办法恢复；或者有些习惯很好的朋友，每修改一次就复制一份当前版本作为备份，然而到了后期，工作文件夹内会有一大堆文档，也无法对比各个版本之间的差异。如果你即希望在一个文件上直接修改以保持工作目录的整洁，又想对每个版本进行备注说明，必要时恢复版本进行对比，那么Git就能成为你最得力的助手！</p>
+<h1 id="邂逅Git"><a href="#邂逅Git" class="headerlink" title="邂逅Git"></a>邂逅Git</h1><p>相信很多朋友都会或多或少遇到过这些问题：写一篇文章，直接在初稿上改来改去，到最后还是感觉初稿好，却没办法恢复；或者有些习惯很好的朋友，每修改一次就复制一份当前版本作为备份，然而到了后期，工作文件夹内会有一大堆文档，也无法对比各个版本之间的差异。如果你既希望在一个文件上直接修改以保持工作目录的整洁，又想对每个版本进行备注说明，必要时恢复版本进行对比，那么Git就能成为你最得力的助手！</p>
 <p>那么，为了使用Git，首先需要下载安装。对于使用Debian系的Linux的小伙伴们，没有什么比<code>apt-get install git</code>更容易了，别犹豫，一键安装！对于使用Windows系列的小伙伴们，可从<a href="https://git-scm.com/" target="_blank" rel="noopener">Git官方网站</a> 下载安装。基本上按默认配置就可以，一路选“是”。</p>
 <p>对于Windows用户，安装时有以下两点需要提醒。其一，在选择Git默认文本编辑器时，默认为Vim，这是一款非常强大的编辑器，但是对新手不是很友好，建议换成其他编辑器，这里比较推荐Notepad++（需另外安装）；其二，在路径环境设置时尽量按推荐使其支持第三方工具调用，这在后期需要GUI界面时提供便利。</p>
 <p><img src="/2019/09/21/IntroGit/setup.jpg" alt="安装提醒"></p>
@@ -407,6 +407,10 @@
 <p>OK，有了这些感性认识之后，后面的学习相信会容易很多。</p>
 <h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>本来想着按照教程的思路去解释各种命令，但是<a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">廖雪峰的官方网站</a>已经展示了新手向的引导，且<a href="https://git-scm.com/docs" target="_blank" rel="noopener">Git帮助文档</a>也给出了非常详细的教程。以我的水平，也没必要再在这里赘述，倒不如给出常用的命令列表，再用一个实例进行说明。</p>
 <p>下列命令中的<code>&lt;example&gt;</code>均为示例，实际使用时连同尖括号一起替换为相应参数。</p>
+<blockquote>
+<p>非常抱歉地告诉朋友们，下图中“第一次使用前必要的配置”两条命令都被我写错了，但我还是懒得修改图片，直接在这里更正好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;username&gt;</span><br><span class="line">git config --global user.email &lt;email@email.com&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
 <p><img src="/2019/09/21/IntroGit/cmd.jpg" alt></p>
 <p>Git的分支是杀手锏武器，开发者也非常鼓励大家在使用的时候频繁利用分支进行管理。例如需要进行版本回退时，可以创建个指向回退版本的分支，在那个分支上进行修改，验证可行后将其合并到主分支即可。这就避免了“吃了后悔药之后又后悔”的情况。</p>
 <h1 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h1><p>最近老板让我整理一个系统仿真模型，这个模型不同于我之前搭建的模型，所以我选择新建一个文件夹来专门处理这个事情，同时，我希望用Git对该任务进行管理。我决定采用这种方式进行：以Git的<strong>master</strong>分支作为主分支，始终保持其正确性，其他所有的任务都在临时的分支中进行，调试完成后再合并到主分支。</p>
