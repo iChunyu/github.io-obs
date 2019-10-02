@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="卡尔曼,滤波,">
 
 
 
@@ -79,16 +79,25 @@
 
 
 
-<meta name="description" content="Looking to the future.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Spring Garden">
-<meta property="og:url" content="http://yoursite.com/categories/生活记事/index.html">
+<meta name="description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
+<meta name="keywords" content="卡尔曼,滤波">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卡尔曼滤波基础">
+<meta property="og:url" content="http://yoursite.com/2019/10/02/KalmanFilter/index.html">
 <meta property="og:site_name" content="Spring Garden">
-<meta property="og:description" content="Looking to the future.">
+<meta property="og:description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/KalmanFilter.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/EqP.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/Eqxhat.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/K.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/demo.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/ss.jpg">
+<meta property="og:updated_time" content="2019-10-02T14:04:36.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Garden">
-<meta name="twitter:description" content="Looking to the future.">
+<meta name="twitter:title" content="卡尔曼滤波基础">
+<meta name="twitter:description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/02/KalmanFilter/KalmanFilter.jpg">
 
 
 
@@ -118,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/生活记事/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/02/KalmanFilter/">
 
 
 
 
 
-  <title>分类: 生活记事 | Spring Garden</title>
+  <title>卡尔曼滤波基础 | Spring Garden</title>
   
 
 
@@ -143,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -279,53 +288,207 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>生活记事<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/02/KalmanFilter/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chunyu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spring Garden">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/09/13/MidAutumn/" itemprop="url">
-              
-                <span itemprop="name">中秋节快乐</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">卡尔曼滤波基础</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-13T22:02:56+08:00" content="2019-09-13">
-          09-13
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-02T22:04:24+08:00">
+                2019-10-02
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据处理/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。</p>
+<a id="more"></a>
+
+<h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>通常我们所说的低通、高通、带通、带阻等滤波器都是所谓的频域滤波器，能对不同频段的信号实现不同的增益或衰减从而只保留关心频段内的信号，可用传递函数或状态空间表示，且通常情况下都是单输入单输出系统(SISO)。这些滤波器不依赖于模型，虽然具有较强的通用性，但却不能根据其它信息对信号做进一步估计。与之不同，卡尔曼滤波器则采用多种输入，并根据模型对系统的状态变量进行估计，是一种时域的数字滤波器。</p>
+<p>下面我们从一个最经典的例子开始，来讨论下卡尔曼滤波的基本思想。</p>
+<p>有一天你开车出去玩，想时时刻刻知道自己所处的位置以避免迷路，你可以采用两种方式来对当前位置进行估计：其一，利用GPS获取当前位置，这是直接的测量手段；其二，根据车速和上一时刻的位置来对当前位置进行估计，这是根据输入（速度）和模型（运动学）对输出（位置）进行估计。显然，这两种方法都是存在误差（或噪声，以方差或功率谱来定量评估），于是你会想到取两者的平均值作为当前的位置。进一步，你会想到平均值也分为算数平均值、加权平均值、几何平均值等，选用哪种平均值较好呢？由于两种方法的误差不一定相同，所以你会优先选用加权平均值，并且考虑到方差越大表示测量越不准确，所以你以方差的倒数为权。如果你真的想到了这些，那么恭喜你已经触探到了卡尔曼滤波的基本思路。</p>
+<p>现在我们对卡尔曼滤波进行归纳和限制，用稍微严谨一点的话来描述：对于线性系统，若系统的各种噪声服从高斯分布，卡尔曼滤波可分为两个步骤：首先利用系统的输入和一定的数学模型对输出进行<strong>预测</strong>；然后结合实测的输出对状态进行<strong>更新</strong>。</p>
+<h1 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h1><p>现在，我们尝试用简单的数学推导下面框图所示意的卡尔曼滤波的递推算法。再次说明的是，本文采用了基础的数学和类比的思想，原则上并不严谨，但能够对初学者提供一个较为清晰的基础框架，以快速入门并利于后面的学习。推导部分主要参考<a href="https://ieeexplore.ieee.org/document/6279585" target="_blank" rel="noopener">Understanding the Basis of the Kalman Filter Via a Simple and Intuitive Derivation</a>。</p>
+<p><img src="/2019/10/02/KalmanFilter/KalmanFilter.jpg" alt></p>
+<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><p>首先考虑后向差分算法下，系统的离散时间状态空间表达为<br>$$<br>\begin{array}{l}<br>{\bf{ x} }(i) = A{\bf{ x} }(i - 1) + B{\bf{u} }(i) + {\bf{w}(i) } \\<br>{\bf{y} }(i) = C{\bf{ x} }(i) + D {\bf{u} }(i) + {\bf{v}(i) }<br>\end{array}<br>$$其中$x$为系统的状态变量，$u$为系统输入，$y$为系统输出。在绝大多数情况下，系统的直接传输矩阵$D=0$，因此我们将不讨论它的影响。${\bf{w}(i)}$和${\bf{v}(i)}$为系统中满足高斯分布的噪声，设其均值都为0，协方差矩阵分别为$Q$和$R$。</p>
+<p>由于噪声是不可预测的，我们无法对噪声进行建模，故理论模型的开环状态空间方程为<br>$$<br>\begin{array}{l}<br>{\bf{\hat x} }(i) = A{\bf{\hat x} }(i - 1) + B{\bf{u} }(i)\\<br>{\bf{\hat y} }(i) = C{\bf{\hat x} }(i)<br>\end{array}<br>$$应当注意，连续时间和离散时间状态空间的$ABCD$矩阵不一定相等，所以这里采用了不同的记号。戴帽子的${\hat x}$是嵌入模型中状态变量的估计值。</p>
+<blockquote>
+<p>这里借用了Enrico Canuto教授<a href="https://www.gekant.it/" target="_blank" rel="noopener">模型嵌入控制</a>中的概念，将卡尔曼滤波器内部的理论模型称之为嵌入模型。</p>
+</blockquote>
+<p>有了嵌入模型，我们就能根据上一时刻的状态和当前时刻的输入计算出当前时刻的理论状态，我们用一个减号上标来表示预测的状态，即<br>$$<br>{\bf{\hat x} }^-(i) = A{\bf{\hat x} }(i - 1) + B{\bf{u} }(i)<br>$$前面提到过，状态的修正是根据方差的导数进行加权平均的，因此我们不光要对状态进行估计，还要对状态的方差进行估计。设$i$时刻预测的状态${\bf{\hat x} }^-(i)$的协方差矩阵为$P_i^-$，修正后的状态${\bf{\hat x} }(i)$的协方差矩阵为$P_i$，则有</p>
+<p><img src="/2019/10/02/KalmanFilter/EqP.jpg" alt></p>
+<blockquote>
+<p>本博客采用Markdown语法似乎不支持太复杂的公式编译，所以只好用图片代替了。</p>
+</blockquote>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>简单起见，我们用一维情况来推导。设预测的输出${\hat y}$以及测得的输出${\tilde y}$分别服从高斯分布<br>$$<br>\begin{array}{l}<br>\hat y \sim N({\mu _1},\sigma _1^2) \Rightarrow {f_1} = \frac{1}{ {\sqrt {2\pi \sigma _1^2} } }{e^{ - \frac{ { { {(y - {\mu _1})}^2} } }{ {2\sigma _1^2} } } }\\<br>\tilde y \sim N({\mu _2},\sigma _2^2) \Rightarrow {f_2} = \frac{1}{ {\sqrt {2\pi \sigma _2^2} } }{e^{ - \frac{ { { {(y - {\mu _2})}^2} } }{ {2\sigma _2^2} } } }<br>\end{array}<br>$$ </p>
+<p>对输出最好的估计则是采用两者的联合分布，这可以通过简单地将两者相乘得到。对于服从高斯分布的随机变量，其联合分布仍为高斯分布，因此我们在计算时可以只考虑概率密度函数的核，即忽略归一化系数。</p>
+<p><img src="/2019/10/02/KalmanFilter/Eqxhat.jpg" alt></p>
+<p>其中，$\mu_{fused}$的第二个等号说明，对于高斯分布的随机变量，其联合分布的均值的确是各均值按方差的倒数加权取平均得到的。最后的等式形式将用于递归。</p>
+<p>卡尔曼滤波器是状态的估计，而上面的修正是对输出的修正，因此需要进行变量替换<br>$$<br>\begin{array}{l}<br>{\mu _1} \to {\bf{\hat y} }(i)\\<br>{\mu _2} \to {\bf{\tilde y} }(i)\\<br>{\mu _{fused} } \to C{\bf{\hat x} }(i)\\<br>\sigma _1^2 \to {C^T}CP^{-}(i)\\<br>\sigma _2^2 \to R\\<br>\sigma _{fused}^2 \to {C^T}CP(i)<br>\end{array}<br>$$ 代入之后，等号两边同时“除以”矩阵$C$，得到状态修正的递推式<br>$$<br>\begin{array}{l}<br>{\bf{\hat x} }(i) = { { {\bf{\hat x} } }^ - }(i) - K\left( { {\bf{\tilde y} }(i) - C{ { {\bf{\hat x} } }^ - }(i)} \right)\\<br>P(i) = {P^ - }(i) - KC{P^ - }(i)\\<br>K = {P^ - }(i){C^T}{\left[ {C{P^ - }(i){C^T} + R} \right]^{ - 1} }<br>\end{array}<br>$$ 其中$K$称为卡尔曼增益。</p>
+<blockquote>
+<p><strong>注意:</strong>“除以”矩阵的说法是不准确的，而且矩阵$C$甚至不一定可逆，因此这种形式上的相除是非常不严谨的，仅供初学时作为类比。</p>
+</blockquote>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>卡尔曼滤波的算法分为两步，首先根据输入和理论模型<strong>预测</strong>当前状态，用上标带减号的符号表示<br>$$<br>{\bf{\hat x} }^-(i) = A{\bf{\hat x} }(i - 1) + B{\bf{u} }(i) \\<br>P^{-}(i) = A P(i-1) A^{T} + Q<br>$$ 然后根据实测的输出对状态进行<strong>更新</strong><br>$$<br>{\bf{\hat x} }(i) = { { {\bf{\hat x} } }^ - }(i) - K\left( { {\bf{\tilde y} }(i) - C{ { {\bf{\hat x} } }^ - }(i)} \right)\\<br>P(i) = {P^ - }(i) - KC{P^ - }(i)\\<br>K = {P^ - }(i){C^T}{\left[ {C{P^ - }(i){C^T} + R} \right]^{ - 1} }<br>$$</p>
+<p>嗯，这就完了。</p>
+<h1 id="仿真测试"><a href="#仿真测试" class="headerlink" title="仿真测试"></a>仿真测试</h1><p>在第二节的开头给出了我自己在Simulink中搭建的卡尔曼滤波器，卡尔曼增益模块内部构造如下图所示。</p>
+<p><img src="/2019/10/02/KalmanFilter/K.jpg" alt></p>
+<p>设置系统为二阶积分器，卡尔曼滤波前后的效果如图所示。<br><img src="/2019/10/02/KalmanFilter/demo.jpg" alt></p>
+<p>可以看出该滤波器确实对信号的波动（噪声）有所抑制，深入的分析和评估有待日后进一步学习卡尔曼滤波后与大家分享。</p>
+<h1 id="两点感悟"><a href="#两点感悟" class="headerlink" title="两点感悟"></a>两点感悟</h1><p>离散时间状态空间是由差分近似微分得到的，由于前向差分和后向差分方式的不同，使得表达式会有所差异，表现在结构上如下图所示。</p>
+<p><img src="/2019/10/02/KalmanFilter/ss.jpg" alt></p>
+<p>可以隐约感受到，离散状态空间的状态输出，如果是在延时之后（前向差分），就可以利用延时之前的状态进行预测。这种预测可以补偿数字系统采样引入的延时，从而有利于闭环的实时控制。如果输出在延时之前（后向差分），就可以对当前状态进行修正，有利于当前信息的提取。</p>
+<p>另一方面，我们关注卡尔曼滤波闭环的反馈端口，其反馈信号直接输给了状态量，而不是常规情况下输给系统的输入段。这容易让我们想到，由于嵌入模型是数学建模获得，它的信息完全可知，并且在程序中我们也可以任意修改。因此，状态观测器的反馈信号不限于反馈到输入端，可以反馈到模型的任何位置。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/卡尔曼/" rel="tag"># 卡尔曼</a>
+          
+            <a href="/tags/滤波/" rel="tag"># 滤波</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/21/IntroGit/" rel="next" title="Git简介">
+                <i class="fa fa-chevron-left"></i> Git简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -333,6 +496,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -353,8 +520,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -432,6 +608,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本原理"><span class="nav-number">1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归算法"><span class="nav-number">2.</span> <span class="nav-text">递归算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#预测"><span class="nav-number">2.1.</span> <span class="nav-text">预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">2.2.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#仿真测试"><span class="nav-number">3.</span> <span class="nav-text">仿真测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两点感悟"><span class="nav-number">4.</span> <span class="nav-text">两点感悟</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -574,6 +766,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
