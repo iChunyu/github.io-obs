@@ -88,12 +88,10 @@
 <meta property="og:description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/KalmanFilter.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/EqP.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/Eqxhat.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/K.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/demo.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/ss.jpg">
-<meta property="og:updated_time" content="2019-10-03T01:31:27.225Z">
+<meta property="og:updated_time" content="2019-10-03T02:20:37.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卡尔曼滤波简介">
 <meta name="twitter:description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
@@ -405,15 +403,9 @@
 <blockquote>
 <p>这里借用了Enrico Canuto教授<a href="https://www.gekant.it/" target="_blank" rel="noopener">模型嵌入控制</a>中的概念，将卡尔曼滤波器内部的理论模型称之为嵌入模型。</p>
 </blockquote>
-<p>有了嵌入模型，我们就能根据上一时刻的状态和当前时刻的输入计算出当前时刻的理论状态，我们用一个减号上标来表示预测的状态，即<br>$$<br>{\bf{\hat x} }^-(i) = A{\bf{\hat x} }(i - 1) + B{\bf{u} }(i)<br>$$前面提到过，状态的修正是根据方差的导数进行加权平均的，因此我们不光要对状态进行估计，还要对状态的方差进行估计。设$i$时刻预测的状态${\bf{\hat x} }^-(i)$的协方差矩阵为$P_i^-$，修正后的状态${\bf{\hat x} }(i)$的协方差矩阵为$P_i$，则有</p>
-<p><img src="/2019/10/02/KalmanFilter/EqP.jpg" alt></p>
-<blockquote>
-<p>本博客采用Markdown语法似乎不支持太复杂的公式编译，所以只好用图片代替了。</p>
-</blockquote>
+<p>有了嵌入模型，我们就能根据上一时刻的状态和当前时刻的输入计算出当前时刻的理论状态，我们用一个减号上标来表示预测的状态，即<br>$$<br>{\bf{\hat x} }^-(i) = A{\bf{\hat x} }(i - 1) + B{\bf{u} }(i)<br>$$前面提到过，状态的修正是根据方差的导数进行加权平均的，因此我们不光要对状态进行估计，还要对状态的方差进行估计。设$i$时刻预测的状态${\bf{\hat x} }^-(i)$的协方差矩阵为$P^-(i)$，修正后的状态${\bf{\hat x} }(i)$的协方差矩阵为$P(i)$，则有<br>$$<br>\begin{array}{l}<br>P^-(i) &amp;=&amp; E \left[ \left( {\bf x}(i) - {\hat {\bf x} }^-(i) \right) \left( {\bf x}(i) - {\hat {\bf x} }^-(i) \right)^T \right] \\<br>&amp;=&amp; E \left[ \left( A \left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right) + {\bf w}(i) \right)  \left( \left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right)^T A^T + {\bf w}^T (i)\right) \right] \\<br>&amp;=&amp; A E \left[ \left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right) \left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right)^T \right] A^T \\<br>&amp; &amp; + A E \left[\left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right) {\bf w}^T (i)\right] \\<br>&amp; &amp; +  E \left[ {\bf w}(i) \left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right)^T  \right] A^T\\<br>&amp; &amp; + E \left( {\bf w}(i) {\bf w}^T (i)\right) \\<br>&amp;=&amp; A P(i-1) A^T + Q<br>\end{array}<br>$$ 上式推导中，由于噪声均值为零，满足<br>$$<br>A E \left[\left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right) {\bf w}^T (i)\right] = E \left[ {\bf w}(i) \left( {\bf x}(i-1) - {\hat {\bf x} }(i-1) \right)^T  \right] A^T = 0<br>$$</p>
 <h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>简单起见，我们用一维情况来推导。设预测的输出${\hat y}$以及测得的输出${\tilde y}$分别服从高斯分布<br>$$<br>\begin{array}{l}<br>\hat y \sim N({\mu _1},\sigma _1^2) \Rightarrow {f_1} = \frac{1}{ {\sqrt {2\pi \sigma _1^2} } }{e^{ - \frac{ { { {(y - {\mu _1})}^2} } }{ {2\sigma _1^2} } } }\\<br>\tilde y \sim N({\mu _2},\sigma _2^2) \Rightarrow {f_2} = \frac{1}{ {\sqrt {2\pi \sigma _2^2} } }{e^{ - \frac{ { { {(y - {\mu _2})}^2} } }{ {2\sigma _2^2} } } }<br>\end{array}<br>$$ </p>
-<p>对输出最好的估计则是采用两者的联合分布，这可以通过简单地将两者相乘得到。对于服从高斯分布的随机变量，其联合分布仍为高斯分布，因此我们在计算时可以只考虑概率密度函数的核，即忽略归一化系数。</p>
-<p><img src="/2019/10/02/KalmanFilter/Eqxhat.jpg" alt></p>
-<p>其中，$\mu_{fused}$的第二个等号说明，对于高斯分布的随机变量，其联合分布的均值的确是各均值按方差的倒数加权取平均得到的。最后的等式形式将用于递归。</p>
+<p>对输出最好的估计则是采用两者的联合分布，这可以通过简单地将两者相乘得到。对于服从高斯分布的随机变量，其联合分布仍为高斯分布，因此我们在计算时可以只考虑概率密度函数的核，即忽略归一化系数。<br>$$<br>\begin{array}{l}<br>f_1 f_2 \propto e^{ -\frac{1}{2} \left[ \frac{ (y-\mu_1)^2 }{ \sigma_1^2 } + \frac{ (y-\mu_2)^2 }{ \sigma_2^2 } \right]} \propto e^{ -\frac{ (y-\mu_{fused})^2 }{2 \sigma_{fused}^2} } \\<br>\mu_{fused} = \frac{ \mu_1 \sigma_2^2 + \mu_2 \sigma_1^2 }{\sigma_1^2 + \sigma_2^2} = \frac{\mu_1 \frac{1}{\sigma_1^2} + \mu_2 \frac{1}{\sigma_2^2} }{ \frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} } = \mu_1 - \frac{\sigma_1^2}{\sigma_1^2 + \sigma_2^2} \left( \mu_2 - \mu_1 \right) \\<br>\sigma_{fused}^2 = \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2 + \sigma_2^2} = \sigma_1^2 - \frac{\sigma_1^2}{\sigma_1^2 + \sigma_2^2} \sigma_1^2<br>\end{array}<br>$$ 其中，$\mu_{fused}$的第二个等号说明，对于高斯分布的随机变量，其联合分布的均值的确是各均值按方差的倒数加权取平均得到的。最后的等式形式将用于递归。</p>
 <p>卡尔曼滤波器是状态的估计，而上面的修正是对输出的修正，因此需要进行变量替换<br>$$<br>\begin{array}{l}<br>{\mu _1} \to {\bf{\hat y} }(i)\\<br>{\mu _2} \to {\bf{\tilde y} }(i)\\<br>{\mu _{fused} } \to C{\bf{\hat x} }(i)\\<br>\sigma _1^2 \to CP^{-}(i){C^T}\\<br>\sigma _2^2 \to R\\<br>\sigma _{fused}^2 \to CP(i){C^T}<br>\end{array}<br>$$ 代入之后，等号两边同时左乘矩阵$C$的逆，得到状态修正的递推式<br>$$<br>\begin{array}{l}<br>{\bf{\hat x} }(i) = { { {\bf{\hat x} } }^ - }(i) - K\left( { {\bf{\tilde y} }(i) - C{ { {\bf{\hat x} } }^ - }(i)} \right)\\<br>P(i) = {P^ - }(i) - KC{P^ - }(i)\\<br>K = {P^ - }(i){C^T}{\left[ {C{P^ - }(i){C^T} + R} \right]^{ - 1} }<br>\end{array}<br>$$ 其中$K$称为卡尔曼增益。</p>
 <blockquote>
 <p><strong>注意:</strong> 矩阵$C$不一定可逆，所以“左乘矩阵$C$的逆”的说法是不准确的，这种表述仅供初学时作为类比。</p>
