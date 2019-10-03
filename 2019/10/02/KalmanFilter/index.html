@@ -89,9 +89,10 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/KalmanFilter.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/K.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/demo.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/TestMdl.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/SimResult.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/ss.jpg">
-<meta property="og:updated_time" content="2019-10-03T02:20:37.210Z">
+<meta property="og:updated_time" content="2019-10-03T03:37:03.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卡尔曼滤波简介">
 <meta name="twitter:description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
@@ -414,7 +415,10 @@
 <p>嗯，这就完了。</p>
 <h1 id="仿真测试"><a href="#仿真测试" class="headerlink" title="仿真测试"></a>仿真测试</h1><p>在第二节的开头给出了我自己在Simulink中搭建的卡尔曼滤波器，卡尔曼增益模块内部构造如下图所示。</p>
 <p><img src="/2019/10/02/KalmanFilter/K.jpg" alt></p>
-<p>设置系统为二阶积分器，卡尔曼滤波前后的效果如图所示。<br><img src="/2019/10/02/KalmanFilter/demo.jpg" alt></p>
+<p>构建带有阻尼的简谐振动系统，并设自振周期为1.5s，阻尼比为0.5，质量为1kg。仿真模型顶层设计如下图所示。</p>
+<p><img src="/2019/10/02/KalmanFilter/TestMdl.jpg" alt></p>
+<p>导入参数并运行仿真，结果如下。</p>
+<p><img src="/2019/10/02/KalmanFilter/SimResult.jpg" alt></p>
 <p>可以看出该滤波器确实对信号的波动（噪声）有所抑制，深入的分析和评估有待日后进一步学习卡尔曼滤波后与大家分享。</p>
 <h1 id="两点感悟"><a href="#两点感悟" class="headerlink" title="两点感悟"></a>两点感悟</h1><p>离散时间状态空间是由差分近似微分得到的，由于前向差分和后向差分方式的不同，使得表达式会有所差异，表现在结构上如下图所示。</p>
 <p><img src="/2019/10/02/KalmanFilter/ss.jpg" alt></p>
