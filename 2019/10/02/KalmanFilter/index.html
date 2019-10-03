@@ -82,7 +82,7 @@
 <meta name="description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
 <meta name="keywords" content="卡尔曼,滤波">
 <meta property="og:type" content="article">
-<meta property="og:title" content="卡尔曼滤波基础">
+<meta property="og:title" content="卡尔曼滤波简介">
 <meta property="og:url" content="http://yoursite.com/2019/10/02/KalmanFilter/index.html">
 <meta property="og:site_name" content="Spring Garden">
 <meta property="og:description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
@@ -93,9 +93,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/K.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/demo.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/10/02/KalmanFilter/ss.jpg">
-<meta property="og:updated_time" content="2019-10-02T14:04:36.058Z">
+<meta property="og:updated_time" content="2019-10-03T01:31:27.225Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="卡尔曼滤波基础">
+<meta name="twitter:title" content="卡尔曼滤波简介">
 <meta name="twitter:description" content="卡尔曼滤波器是一种时域的自回归滤波器，能够根据系统的输入输出从噪声中提取状态信息。卡尔曼滤波以其高效的递归特性广泛应用于航空航天等领域。本文对卡尔曼滤波的基本原理进行介绍，并以不太严谨的数学导出其算法结构，旨在帮助初学者快速入门。">
 <meta name="twitter:image" content="http://yoursite.com/2019/10/02/KalmanFilter/KalmanFilter.jpg">
 
@@ -133,7 +133,7 @@
 
 
 
-  <title>卡尔曼滤波基础 | Spring Garden</title>
+  <title>卡尔曼滤波简介 | Spring Garden</title>
   
 
 
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">卡尔曼滤波基础</h1>
+          <h1 class="post-title" itemprop="name headline">卡尔曼滤波简介</h1>
         
 
         <div class="post-meta">
@@ -414,9 +414,9 @@
 <p>对输出最好的估计则是采用两者的联合分布，这可以通过简单地将两者相乘得到。对于服从高斯分布的随机变量，其联合分布仍为高斯分布，因此我们在计算时可以只考虑概率密度函数的核，即忽略归一化系数。</p>
 <p><img src="/2019/10/02/KalmanFilter/Eqxhat.jpg" alt></p>
 <p>其中，$\mu_{fused}$的第二个等号说明，对于高斯分布的随机变量，其联合分布的均值的确是各均值按方差的倒数加权取平均得到的。最后的等式形式将用于递归。</p>
-<p>卡尔曼滤波器是状态的估计，而上面的修正是对输出的修正，因此需要进行变量替换<br>$$<br>\begin{array}{l}<br>{\mu _1} \to {\bf{\hat y} }(i)\\<br>{\mu _2} \to {\bf{\tilde y} }(i)\\<br>{\mu _{fused} } \to C{\bf{\hat x} }(i)\\<br>\sigma _1^2 \to {C^T}CP^{-}(i)\\<br>\sigma _2^2 \to R\\<br>\sigma _{fused}^2 \to {C^T}CP(i)<br>\end{array}<br>$$ 代入之后，等号两边同时“除以”矩阵$C$，得到状态修正的递推式<br>$$<br>\begin{array}{l}<br>{\bf{\hat x} }(i) = { { {\bf{\hat x} } }^ - }(i) - K\left( { {\bf{\tilde y} }(i) - C{ { {\bf{\hat x} } }^ - }(i)} \right)\\<br>P(i) = {P^ - }(i) - KC{P^ - }(i)\\<br>K = {P^ - }(i){C^T}{\left[ {C{P^ - }(i){C^T} + R} \right]^{ - 1} }<br>\end{array}<br>$$ 其中$K$称为卡尔曼增益。</p>
+<p>卡尔曼滤波器是状态的估计，而上面的修正是对输出的修正，因此需要进行变量替换<br>$$<br>\begin{array}{l}<br>{\mu _1} \to {\bf{\hat y} }(i)\\<br>{\mu _2} \to {\bf{\tilde y} }(i)\\<br>{\mu _{fused} } \to C{\bf{\hat x} }(i)\\<br>\sigma _1^2 \to CP^{-}(i){C^T}\\<br>\sigma _2^2 \to R\\<br>\sigma _{fused}^2 \to CP(i){C^T}<br>\end{array}<br>$$ 代入之后，等号两边同时左乘矩阵$C$的逆，得到状态修正的递推式<br>$$<br>\begin{array}{l}<br>{\bf{\hat x} }(i) = { { {\bf{\hat x} } }^ - }(i) - K\left( { {\bf{\tilde y} }(i) - C{ { {\bf{\hat x} } }^ - }(i)} \right)\\<br>P(i) = {P^ - }(i) - KC{P^ - }(i)\\<br>K = {P^ - }(i){C^T}{\left[ {C{P^ - }(i){C^T} + R} \right]^{ - 1} }<br>\end{array}<br>$$ 其中$K$称为卡尔曼增益。</p>
 <blockquote>
-<p><strong>注意:</strong>“除以”矩阵的说法是不准确的，而且矩阵$C$甚至不一定可逆，因此这种形式上的相除是非常不严谨的，仅供初学时作为类比。</p>
+<p><strong>注意:</strong> 矩阵$C$不一定可逆，所以“左乘矩阵$C$的逆”的说法是不准确的，这种表述仅供初学时作为类比。</p>
 </blockquote>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>卡尔曼滤波的算法分为两步，首先根据输入和理论模型<strong>预测</strong>当前状态，用上标带减号的符号表示<br>$$<br>{\bf{\hat x} }^-(i) = A{\bf{\hat x} }(i - 1) + B{\bf{u} }(i) \\<br>P^{-}(i) = A P(i-1) A^{T} + Q<br>$$ 然后根据实测的输出对状态进行<strong>更新</strong><br>$$<br>{\bf{\hat x} }(i) = { { {\bf{\hat x} } }^ - }(i) - K\left( { {\bf{\tilde y} }(i) - C{ { {\bf{\hat x} } }^ - }(i)} \right)\\<br>P(i) = {P^ - }(i) - KC{P^ - }(i)\\<br>K = {P^ - }(i){C^T}{\left[ {C{P^ - }(i){C^T} + R} \right]^{ - 1} }<br>$$</p>
 <p>嗯，这就完了。</p>
