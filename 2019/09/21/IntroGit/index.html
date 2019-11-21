@@ -90,7 +90,8 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/setup.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/git1.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/git2.jpg">
-<meta property="og:updated_time" content="2019-10-28T04:43:55.945Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/IntroGit/cmd.jpg">
+<meta property="og:updated_time" content="2019-11-21T08:43:51.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git简介">
 <meta name="twitter:description" content="版本控制是对工作中各种文件的变动进行记录、备份，并在有需要的时候进行文件恢复的一种有效手段。Git是最先进的分布式版本控制系统，无论是个人文件的备份，还是大型项目的多人协作，都能从Git中受益匪浅。这篇博客是我个人学习Git的进展记录，目的是汇总Git的常用操作，顺便将Git分享给有兴趣或有需求的朋友们。">
@@ -408,9 +409,14 @@
 <p>下列命令中的<code>&lt;example&gt;</code>均为示例，实际使用时连同尖括号一起替换为相应参数。</p>
 <blockquote>
 <p>非常抱歉地告诉朋友们，下图中“第一次使用前必要的配置”两条命令都被我写错了，但我还是懒得修改图片，直接在这里更正好了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; git config --global user.name &lt;username&gt;</span><br><span class="line">&gt; git config --global user.email &lt;email@email.com&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">![](cmd.jpg)</span><br><span class="line"></span><br><span class="line">Git的分支是杀手锏武器，开发者也非常鼓励大家在使用的时候频繁利用分支进行管理。例如需要进行版本回退时，可以创建个指向回退版本的分支，在那个分支上进行修改，验证可行后将其合并到主分支即可。这就避免了“吃了后悔药之后又后悔”的情况。</span><br><span class="line"></span><br><span class="line"># 一个栗子</span><br><span class="line"></span><br><span class="line">最近老板让我整理一个系统仿真模型，这个模型不同于我之前搭建的模型，所以我选择新建一个文件夹来专门处理这个事情，同时，我希望用Git对该任务进行管理。我决定采用这种方式进行：以Git的__master__分支作为主分支，始终保持其正确性，其他所有的任务都在临时的分支中进行，调试完成后再合并到主分支。</span><br><span class="line"></span><br><span class="line">## 工作目录初始化</span><br><span class="line"></span><br><span class="line">假设这个项目的代号为A，于是我新建了一个名为__ProjectA__的文件夹，并右键打开Git Bash Here，运行</span><br><span class="line">​```git</span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;username&gt;</span><br><span class="line">git config --global user.email &lt;email@email.com&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/09/21/IntroGit/cmd.jpg" alt></p>
+<p>Git的分支是杀手锏武器，开发者也非常鼓励大家在使用的时候频繁利用分支进行管理。例如需要进行版本回退时，可以创建个指向回退版本的分支，在那个分支上进行修改，验证可行后将其合并到主分支即可。这就避免了“吃了后悔药之后又后悔”的情况。</p>
+<h1 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h1><p>最近老板让我整理一个系统仿真模型，这个模型不同于我之前搭建的模型，所以我选择新建一个文件夹来专门处理这个事情，同时，我希望用Git对该任务进行管理。我决定采用这种方式进行：以Git的<strong>master</strong>分支作为主分支，始终保持其正确性，其他所有的任务都在临时的分支中进行，调试完成后再合并到主分支。</p>
+<h2 id="工作目录初始化"><a href="#工作目录初始化" class="headerlink" title="工作目录初始化"></a>工作目录初始化</h2><p>假设这个项目的代号为A，于是我新建了一个名为<strong>ProjectA</strong>的文件夹，并右键打开Git Bash Here，运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 
 <p>虽然Git Bash提示我成功创建了一个仓库，但文件夹内没有看到任何新文件。不要紧，因为之前说过Git仓库不显示在工作目录，实际上它是一个隐藏文件，一般人千万不要去修改它。</p>
 <p>接着我打开MATLAB，想到后面的工作会在Simulink上进行，而Simulink在运行时会产生一个名为<strong>slprj</strong>的文件夹，用来保存仿真过程中的各种信息。我不希望这个文件夹进入Git仓库，所以需要让Git忽略它。为此，我们需要编写一个名为<strong>.gitignore</strong>的文本文件。</p>
@@ -669,7 +675,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#邂逅Git"><span class="nav-number">1.</span> <span class="nav-text">邂逅Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识Git"><span class="nav-number">2.</span> <span class="nav-text">初识Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加文件并提交修改"><span class="nav-number">3.1.</span> <span class="nav-text">添加文件并提交修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销操作"><span class="nav-number">3.2.</span> <span class="nav-text">撤销操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">3.3.</span> <span class="nav-text">分支管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">4.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#邂逅Git"><span class="nav-number">1.</span> <span class="nav-text">邂逅Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识Git"><span class="nav-number">2.</span> <span class="nav-text">初识Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个栗子"><span class="nav-number">4.</span> <span class="nav-text">一个栗子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作目录初始化"><span class="nav-number">4.1.</span> <span class="nav-text">工作目录初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加文件并提交修改"><span class="nav-number">4.2.</span> <span class="nav-text">添加文件并提交修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销操作"><span class="nav-number">4.3.</span> <span class="nav-text">撤销操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">4.4.</span> <span class="nav-text">分支管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">5.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
             
 
           </div>
